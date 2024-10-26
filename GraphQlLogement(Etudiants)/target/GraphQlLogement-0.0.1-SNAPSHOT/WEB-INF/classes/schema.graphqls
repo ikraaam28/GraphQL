@@ -1,0 +1,44 @@
+type Logement{
+    reference:Int!
+     adresse:String
+     delegation:String
+     gouvernorat:String
+     type:Type
+    description:String
+      prix:Float
+}
+enum Type{
+    Studio
+    Appartement
+    Villa
+    EtageVilla
+}
+type  RendezVous{
+    id:Int!
+   date:String
+     heure:String
+     logement:Logement
+     numTel:String
+
+}
+type QueryGraph{
+    getAllrdv:[RendezVous]
+    getAlllogements:[Logement]
+    getRendezVousByLogementRef(reference: Int!): [RendezVous]
+    getRendezVousById(id: Int!): RendezVous
+    getAllLogements: [Logement]
+    getLogementByReference(reference: Int!): Logement
+    getLogementsByType(type: Type!): [Logement]
+}
+type MutationGraph{
+    createRendezVous(id:Int,date:String,heure:String,refLog:Int,
+    num:String):RendezVous
+    deleteRendezVousById(id: Int!): Boolean #fil postman mnhlch laccolade
+    updateRendezVous(id:Int,date:String,heure:String,numTel:String):RendezVous
+    createLogement(reference: Int!, adresse: String!, delegation: String!, gouvernorat: String!, type: Type!, description: String!, prix: Float!): Logement
+
+}
+schema{
+    query: QueryGraph
+    mutation: MutationGraph
+}
